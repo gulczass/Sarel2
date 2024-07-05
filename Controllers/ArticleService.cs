@@ -29,10 +29,20 @@ public class ArticleService
              - w innych wymiarach,<br>
              - z innym wykończeniem (pokryte chromianem cynku, metalizowane, itp.),<br>
              - w konfiguracjach na życzenie.<br>",
-    ImageUrl = "/images/logo mh.png"
-} };
+    ImageUrl = "/images/3D.jpg"
+}, 
+        new Article
+        {
+            Id = 2,
+            Title = "SAREL - Wentylatory IP20",
+            Date = DateTime.Now.AddDays(-255),
+            Text = @"Swobodny przepływ bez fi ltra i kratki: 170 m3/h.
+            Dostępne dwa modele w zależności od napięcia zasilania: 230 i 115V, 50-60Hz.
+        Wyposażenie dodatkowe: kratka wylotowa (ABS, w kolorze czarnym) oraz fi ltr (czarna pianka poliuretanowa).<br>",
+            ImageUrl = "/images/23D.jpg"
+        } };
 
-    }
+}
 
     public List<Article> GetAllArticles()
     {

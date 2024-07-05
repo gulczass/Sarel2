@@ -1,0 +1,75 @@
+﻿@model List<Article>
+
+@{
+    ViewData["Title"] = "Articles";
+}
+<style>
+    .article-container {
+        display: flex;
+        margin-bottom: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .article-image {
+        flex: 0 0 200px; /* Fixed width for the image column */
+        margin-right: 20px;
+    }
+
+        .article-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+    .article-content {
+        flex: 1; /* Take remaining space in the container */
+    }
+
+        .article-content h2 {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1c1d22;
+            margin-bottom: 10px;
+        }
+
+        .article-content p {
+            font-size: 16px;
+            color: #3c3f4a;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .article-content a {
+            display: inline-block;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+            .article-content a:hover {
+                text-decoration: underline;
+            }
+</style>
+
+<div class="container">
+    <section class="py-10">
+        <h2 class="text-[#1C1D22] text-3xl md:text-4xl font-bold leading-tight mb-6">Articles</h2>
+        @foreach (var article in Model)
+        {
+            <div class="article-container">
+                <div class="article-image">
+                    <img src="@article.ImageUrl" alt="@article.Title" />
+                </div>
+                <div class="article-content">
+                    <h2>@article.Title</h2>
+                    <p>@article.Text.Substring(0, Math.Min(10, article.Text.Length))...</p>
+                    <a href="@Url.Action("ArticleDetails", "Home", new { id = article.Id })">Read More</a>
+                </div>
+            </div>
+        }
+    </section>
+</div>

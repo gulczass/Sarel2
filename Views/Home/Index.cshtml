@@ -15,30 +15,49 @@
     <link rel="stylesheet" href="~/lib/tiny-slider/tiny-slider.css">
     <script src="~/lib/tiny-slider/tiny-slider.js"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
     <style>
+        .container {
+            max-width: 1200px; /* Adjust based on your layout */
+            margin: 0 auto;
+            padding: 0 10px; /* Ensure padding to align with A4 format */
+        }
+
         .partner-slider-container {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #f0f0f0;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            padding: 10px;
+            /*background-color: #f0f0f0;*/
             overflow: hidden;
+            width: 100%; /* Adjust width as needed */
+            height: 150px; /* Adjust height as needed */
         }
 
         .my-slider {
             display: flex; /* Ensure slider items are in a row */
-            transition: transform 0.5s ease; /* Smooth transition between slides */
+            transition: transform 0,001s ease; /* Smooth transition between slides */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Shadow effect */
         }
 
-        .my-slider img {
-            max-width: 100%;
-            border-radius: 8px;
-            transition: transform 0.2s ease-in-out;
+        .my-slider .tns-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%; /* Ensure the items take full height of the container */
+            margin: 0 10px; /* Add equal space on both sides */
         }
 
-        .my-slider img:hover {
+        .my-slider .tns-item img {
+            max-height: 100%; /* Adjust to fit within the container */
+            width: auto;
+            border-radius: 8px;
+            transition: transform 0.09s ease-in-out;
+            object-fit: contain; /* Maintain aspect ratio */
+        }
+
+        .my-slider .tns-item img:hover {
             transform: scale(1.05); /* Scale effect on hover */
         }
+
         /* Custom styles for search box */
         .search-box {
             position: fixed;
@@ -68,20 +87,20 @@
             margin-bottom: 10px;
         }
 
-            .form-group label {
-                font-size: 14px;
-                color: #1C160C;
-                display: block;
-                margin-bottom: 5px;
-            }
+        .form-group label {
+            font-size: 14px;
+            color: #1C160C;
+            display: block;
+            margin-bottom: 5px;
+        }
 
-            .form-group select,
-            .form-group input[type="text"] {
-                width: 100%;
-                padding: 8px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-            }
+        .form-group select,
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
 
         .search-button {
             background-color: #019863;
@@ -93,187 +112,181 @@
             font-size: 14px;
         }
 
-            .search-button:hover {
-                background-color: #017d51;
-            }
+        .search-button:hover {
+            background-color: #017d51;
+        }
+
         /* Container for each article */
         .article-container {
+            display: flex;
             margin-bottom: 20px;
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 8px;
-            background-color: #FFFFFF;
+            background-color: #ffffff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .article-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #1C1D22;
-            margin-bottom: 10px;
+        .article-image {
+            flex: 0 0 200px; /* Fixed width for the image column */
+            margin-right: 20px;
         }
 
-        .article-text {
-            font-size: 14px;
-            color: #3C3F4A;
-            line-height: 1.6;
-        }
-
-        .article-box {
-            margin-bottom: 20px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            background-color: #FFFFFF;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-            .article-box:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            .article-image img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 8px;
             }
 
-        .article-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #1C1D22;
-            margin-bottom: 10px;
-        }
+            .article-content {
+                flex: 1; /* Take remaining space in the container */
+            }
 
-        .article-text {
-            font-size: 16px;
-            color: #3C3F4A;
-            line-height: 1.6;
-        }
+            .article-content h2 {
+                font-size: 20px;
+                font-weight: bold;
+                color: #1c1d22;
+                margin-bottom: 10px;
+            }
 
-        .article-box a {
-            display: inline-block;
-            margin-top: 10px;
-            color: #007BFF;
-            text-decoration: none;
-            font-weight: bold;
-        }
+            .article-content p {
+                font-size: 16px;
+                color: #3c3f4a;
+                line-height: 1.6;
+                margin-bottom: 10px;
+            }
 
-        .article-box a:hover {
-            text-decoration: underline;
-        }
+            .article-content a {
+                display: inline-block;
+                color: #007bff;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+            .article-content a:hover {
+                text-decoration: underline;
+            }
 
     </style>
 </head>
 <body>
-    <div class="container">
-        
+   
 
-        <!-- Slider container for partner logos -->
-        <div class="partner-slider-container">
-            <div class="my-slider">
-                <div><a href="https://www.se.com/pl/pl"><img src="/images/Schneider.png" alt="Schneider Electric"></a></div>
-                <div><a href="https://www.noark-electric.pl/pl"><img src="/images/noark.png" alt="Partner 2"></a></div>
-                <div><a href="https://eshop.wieland-electric.com/?locale=pl"><img src="/images/logo mh.png" alt="Partner 3"></a></div>
-                <!-- Add more logos as needed -->
-            </div>
-        </div>
-    <div class="relative flex min-h-screen bg-[#F9FAFA] group/design-root overflow-x-hidden" style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
-        <div class="layout-container flex h-full flex-col">
-            <!-- Main Content Section -->
-            <main class="flex-1 bg-white px-8 py-6 max-w-4xl mx-auto">
-                <!-- Hero Section -->
-                <section class="flex flex-col md:flex-row gap-8 py-10 relative">
-                    <div class="flex-1">
-                        <div class="flex flex-col gap-4">
-                            <h1 class="text-[#1C1D22] text-4xl md:text-5xl font-bold leading-tight">Your Partner in Automation</h1>
-                            <p class="text-[#1C1D22] text-lg font-normal leading-normal">Leading solutions for industrial automation and energy management</p>
-                        </div>
-                        <div class="flex gap-3 mt-6">
-                            <button class="flex items-center justify-center h-12 px-6 bg-[#607AFB] text-white text-sm md:text-base font-bold leading-normal tracking-[0.015em] rounded-full">
-                                <span class="truncate">Learn More</span>
-                            </button>
-                            <button class="flex items-center justify-center h-12 px-6 bg-[#EEEFF2] text-[#1C1D22] text-sm md:text-base font-bold leading-normal tracking-[0.015em] rounded-full">
-                                <span class="truncate">Contact Us</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="flex-1 flex justify-center relative">
-                        <div class="w-full bg-center bg-no-repeat aspect-w-16 aspect-h-9 bg-cover rounded-xl hero-image">
-                            <div class="overlay"></div>
-                        </div>
-                        <!-- Search Box -->
-                        <div class="search-box">
-                            <h3 class="search-title">Szukaj produktów Sarela</h3>
-                            <div class="search-form">
-                                <div class="form-group">
-                                    <label for="product-group">Wybierz grupę produktów:</label>
-                                    <select id="product-group">
-                                        <option value="group1">Group 1</option>
-                                        <option value="group2">Group 2</option>
-                                        <option value="group3">Group 3</option>
-                                        <!-- Add more options as needed -->
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="sn">SN:</label>
-                                    <input type="text" id="sn" name="sn">
-                                </div>
-                                <div class="form-group">
-                                    <label for="description">Opis:</label>
-                                    <input type="text" id="description" name="description">
-                                </div>
-                                <button class="search-button">Szukaj</button>
+        <div class="relative flex min-h-screen bg-[#F9FAFA] group/design-root overflow-x-hidden" style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
+            <div class="layout-container flex h-full flex-col">
+                <!-- Main Content Section -->
+                <main class="flex-1 bg-white px-8 py-6 max-w-4xl mx-auto">
+                    <!-- Hero Section -->
+                    <section class="flex flex-col md:flex-row gap-8 py-10 relative">
+                        <div class="flex-1">
+                            <div class="flex flex-col gap-4">
+                                <h1 class="text-[#1C1D22] text-4xl md:text-5xl font-bold leading-tight">Your Partner in Automation</h1>
+                                <p class="text-[#1C1D22] text-lg font-normal leading-normal">Leading solutions for industrial automation and energy management</p>
+                            </div>
+                            <div class="flex gap-3 mt-6">
+                                <button class="flex items-center justify-center h-12 px-6 bg-[#607AFB] text-white text-sm md:text-base font-bold leading-normal tracking-[0.015em] rounded-full">
+                                    <span class="truncate">Learn More</span>
+                                </button>
+                                <button class="flex items-center justify-center h-12 px-6 bg-[#EEEFF2] text-[#1C1D22] text-sm md:text-base font-bold leading-normal tracking-[0.015em] rounded-full">
+                                    <span class="truncate">Contact Us</span>
+                                </button>
                             </div>
                         </div>
+                        <div class="flex-1 flex justify-center relative">
+                            <div class="w-full bg-center bg-no-repeat aspect-w-16 aspect-h-9 bg-cover rounded-xl hero-image">
+                                <div class="overlay"></div>
+                            </div>
+                            <!-- Search Box -->
+                            <div class="search-box">
+                                <h3 class="search-title">Szukaj produktów Sarela</h3>
+                                <div class="search-form">
+                                    <div class="form-group">
+                                        <label for="product-group">Wybierz grupę produktów:</label>
+                                        <select id="product-group">
+                                            <option value="group1">Group 1</option>
+                                            <option value="group2">Group 2</option>
+                                            <option value="group3">Group 3</option>
+                                            <!-- Add more options as needed -->
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sn">SN:</label>
+                                        <input type="text" id="sn" name="sn">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Opis:</label>
+                                        <input type="text" id="description" name="description">
+                                    </div>
+                                    <button class="search-button">Szukaj</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Articles Section -->
+                    <section class="py-10">
+                        <h2 class="text-[#1C1D22] text-3xl md:text-4xl font-bold leading-tight mb-6">Latest Articles</h2>
+                        @foreach (var article in Model)
+                        {
+                            <partial name="_ArticleBox" model="article" />
+                        }
+                    </section>
+                </main>
+            <div class="container">
+                <!-- Slider container for partner logos -->
+                <div class="partner-slider-container">
+                    <div id="logo-slider" class="my-slider">
+                        <div class="tns-item"><a href="https://www.se.com/pl/pl"><img src="/images/3.jpg" alt="Schneider Electric"></a></div>
+                        <div class="tns-item"><a href="https://www.noark-electric.pl/pl"><img src="/images/1.jpg" alt="NOARK"></a></div>
+                        <div class="tns-item"><a href="https://eshop.wieland-electric.com/?locale=pl"><img src="/images/4.jpg" alt="MH"></a></div>
+                        <div class="tns-item"><a href="https://www.siemens.com/pl/pl.html"><img src="/images/2.jpg" alt="Siemens"></a></div>
+                        <div class="tns-item"><a href="https://www.siemens.com/pl/pl.html"><img src="/images/2.jpg" alt="Siemens"></a></div>
+                        <div class="tns-item"><a href="https://www.siemens.com/pl/pl.html"><img src="/images/2.jpg" alt="Siemens"></a></div>
+                        <div class="tns-item"><a href="https://www.siemens.com/pl/pl.html"><img src="/images/2.jpg" alt="Siemens"></a></div>
+                        <!-- Add more logos as needed -->
                     </div>
-                </section>
-
-                <!-- Articles Section -->
-                <!-- Articles Section -->
-                <section class="py-10">
-                    <h2 class="text-[#1C1D22] text-3xl md:text-4xl font-bold leading-tight mb-6">Latest Articles</h2>
-                    @foreach (var article in Model)
-                    {
-                        <partial name="_ArticleBox" model="article" />
-                    }
-                </section>
-            </main>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.3/min/tiny-slider.js"></script>
-
-                <!-- Initialize Tiny Slider -->
-                <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        var slider = tns({
-                            container: '.my-slider',
-                            items: 1,
-                            slideBy: 1, // Slide one item at a time
-                            autoplay: true,
-                            autoplayTimeout: 3000, // Time between slides
-                            autoplayButtonOutput: false,
-                            nav: false,
-                            controls: false,
-                            mouseDrag: true,
-                            responsive: {
-                                768: {
-                                    items: 2
-                                },
-                                992: {
-                                    items: 3
-                                }
-                            }
-                        });
-                    });
-                </script>
-
-            <!-- Footer Section -->
-            <footer class="bg-white border-t border-solid border-b-[#EEEFF2] px-10 py-6">
-                <div class="flex justify-between items-center">
-                    <p class="text-[#1C1D22] text-sm">© 2024 Sarel. Wszelkie prawa zastrzeżone</p>
-                    <nav class="flex gap-6">
-                        <a class="text-[#1C1D22] text-sm font-medium leading-normal" href="#">Privacy Policy</a>
-                        <a class="text-[#1C1D22] text-sm font-medium leading-normal" href="#">Terms of Service</a>
-                        <a class="text-[#1C1D22] text-sm font-medium leading-normal" href="#">Contact Us</a>
-                    </nav>
                 </div>
-            </footer>
+            </div>
+
+                <!-- Footer Section -->
+                <footer class="bg-white border-t border-solid border-b-[#EEEFF2] px-10 py-6">
+                    <div class="flex justify-between items-center">
+                        <p class="text-[#1C1D22] text-sm">© 2024 Sarel. Wszelkie prawa zastrzeżone</p>
+                        <nav class="flex gap-6">
+                            <a class="text-[#1C1D22] text-sm font-medium leading-normal" href="#">Privacy Policy</a>
+                            <a class="text-[#1C1D22] text-sm font-medium leading-normal" href="#">Terms of Service</a>
+                            <a class="text-[#1C1D22] text-sm font-medium leading-normal" href="#">Contact Us</a>
+                        </nav>
+                    </div>
+                </footer>
+            </div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.3/min/tiny-slider.js"></script>
+
+            <!-- Initialize Tiny Slider -->
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    var slider = tns({
+                    container: ".my-slider",
+                    items: 1,
+                    speed: 2500,
+                    autoplay: true,
+                    autoplayTimeout: 2000, // Example timeout, adjust as needed
+                    autoplayButtonOutput: false,
+                    swipeAngle: false,
+                    controls: false,
+                    nav: false,
+                    loop: true, // Ensure looping of slides
+                    responsive: {
+                        768: {
+                            items: 2,
+                        },
+                        992: {
+                            items: 3,
+                        },
+                    },
+                    });
+                });
+            </script>
         </div>
-    </div>
 </body>
 </html>

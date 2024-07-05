@@ -11,7 +11,7 @@ ConfigureServices(builder.Services);
 
 var app = builder.Build();
 
-Configure(app, builder.Environment); // Pass the environment to Configure method
+Configure(app, builder.Environment);
 
 app.Run();
 
@@ -20,7 +20,7 @@ void ConfigureServices(IServiceCollection services)
 {
     services.AddControllersWithViews();
 
-    // Register ArticleService (if not already registered)
+    // Register ArticleService
     services.AddScoped<ArticleService>();
 
     services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
@@ -61,10 +61,16 @@ void Configure(IApplicationBuilder app, IWebHostEnvironment env)
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
 
-        // Route for ArticlesController
+        // Corrected Route for Articles without specifying action as default
         endpoints.MapControllerRoute(
             name: "articles",
-            pattern: "Articles/{action=Index}/{id?}",
-            defaults: new { controller = "Articles" });
+            pattern: "Articles/{action}/{id?}",
+            defaults: new { controller = "Home" });
+
+        // Route for ArticleDetails
+        endpoints.MapControllerRoute(
+            name: "articleDetails",
+            pattern: "Articles/Details/{id?}",
+            defaults: new { controller = "Home", action = "Details" });
     });
 }

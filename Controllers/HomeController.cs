@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using sarel.Models;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace sarel.Controllers
@@ -16,15 +13,29 @@ namespace sarel.Controllers
             _articleService = articleService;
         }
 
+        public IActionResult Articles()
+        {
+            var articles = _articleService.GetAllArticles();
+            return View(articles);
+        }
+
         public IActionResult Index()
         {
             var articles = _articleService.GetAllArticles();
             return View(articles);
         }
-    
 
+        public IActionResult ArticleDetails(int id)
+        {
+            var article = _articleService.GetArticleById(id);
+            if (article == null)
+            {
+                return NotFound();
+            }
+            return View(article);
+        }
 
-    public IActionResult Privacy()
+        public IActionResult Privacy()
         {
             return View();
         }
